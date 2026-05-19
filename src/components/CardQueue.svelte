@@ -140,10 +140,23 @@
         <span class="text-[10px] text-emerald-300 font-medium">喜欢</span>
       </div>
 
-      <div class="mt-6 flex justify-center gap-2 flex-wrap">
+      <div class="mt-4 flex flex-col items-center gap-2">
         <span class="text-xs text-neutral-400">
           已选: ❤️ {liked.size} / ❌ {disliked.size}
         </span>
+        <button
+          onclick={handleGenerate}
+          disabled={liked.size + disliked.size < 20}
+          class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg
+            transition-all duration-150
+            {liked.size + disliked.size < 20
+              ? 'text-neutral-300 cursor-not-allowed'
+              : 'text-emerald-500 hover:text-emerald-600 hover:bg-emerald-50 active:scale-[0.95] border border-emerald-200'}"
+          type="button"
+        >
+          直接生成
+          <span class="tabular-nums">({liked.size + disliked.size}/20)</span>
+        </button>
       </div>
     </div>
   {:else}

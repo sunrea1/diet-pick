@@ -75,7 +75,7 @@
 
     <FoodGrid {liked} {disliked} onchange={handleChange} />
 
-    <div class="mt-8 text-center pb-8">
+    <div class="mt-8 text-center pb-8 space-y-3">
       <button
         onclick={handleGenerate}
         disabled={liked.size === 0}
@@ -87,8 +87,31 @@
         生成减重食谱 &#10132;
       </button>
       {#if liked.size === 0}
-        <p class="text-xs text-neutral-400 mt-2">至少选择一种喜欢的食物才能生成</p>
+        <p class="text-xs text-neutral-400">至少选择一种喜欢的食物才能生成</p>
       {/if}
+
+      <div>
+        <button
+          onclick={handleGenerate}
+          disabled={liked.size + disliked.size < 20}
+          class="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium
+            transition-all duration-200 ease-out
+            {liked.size + disliked.size < 20
+              ? 'text-neutral-300 cursor-not-allowed'
+              : 'text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 active:scale-[0.97] border border-emerald-200 hover:border-emerald-300'}"
+          type="button"
+        >
+          直接生成
+          <span class="tabular-nums text-xs">
+            ({liked.size + disliked.size}/20)
+          </span>
+        </button>
+        {#if liked.size + disliked.size < 20}
+          <p class="text-xs text-neutral-400 mt-1">选满 20 种即可直接生成（当前已选 {liked.size + disliked.size} 种）</p>
+        {:else}
+          <p class="text-xs text-emerald-500 mt-1">已满 20 种，可直接生成</p>
+        {/if}
+      </div>
     </div>
   </div>
 {/if}
